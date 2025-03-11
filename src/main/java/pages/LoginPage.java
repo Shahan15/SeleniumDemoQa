@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class loginPage {
+public class LoginPage {
     private WebDriver driver;
 
     //locators
@@ -12,7 +12,7 @@ public class loginPage {
     private By loginButton = By.id("login");
 
     //constructor
-    public loginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,11 +28,11 @@ public class loginPage {
         driver.findElement(loginButton).click();
     }
 
-    public homePage login(String username, String password) {
+    public BookstoreHomePage login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         pressLoginButton();
-        return new homePage(driver); // Navigating to Home Page
+        return new BookstoreHomePage(driver); // Navigating to Home Page
     }
 }
 
