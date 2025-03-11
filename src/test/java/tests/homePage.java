@@ -33,7 +33,22 @@ public class homePage extends webDriverManager {
         js.executeScript("arguments[0].scrollIntoView();", BookCard);
     }
 
-
+   public boolean isLoginButtonPresent() {
+       try {
+           //2 second wait
+           WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+           wait.until(ExpectedConditions.visibilityOf(LoginButton));
+           logger.info("Waiting 2 seconds for LoginButton to appear");
+           boolean isDisplayed = LoginButton.isDisplayed();
+           logger.info("Login Button is present");
+           return isDisplayed;
+       } catch (Exception ex) {
+           logger.error("Error occured,login button is not present {}",ex.getMessage());
+           System.out.println(ex.getMessage());
+           return false;
+       }
+    }
+}
 
 /*PageFactory class is used to instantiate the
 WebElements that are defined using @FindBy annotations.
