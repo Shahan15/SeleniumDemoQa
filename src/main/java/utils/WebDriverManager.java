@@ -4,19 +4,29 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import static org.apache.logging.log4j.LogManager.getLogger;
+import org.apache.logging.log4j.LogManager;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class webDriverManager {
+public class WebDriverManager {
 
-    public static final Logger logger = getLogger(webDriverManager.class);
+    public static final Logger logger = LogManager.getLogger(WebDriverManager.class);
     public static WebDriver driver;
     private static Filehandler filehandler;
+    public ExtentReports reports;
+    public ExtentTest test;
+
+//    public WebDriverManager () {
+//        setUpExtentReport();
+//    }
 
     public static WebDriver getDriver() {
-        filehandler = new Filehandler();
-
         try {
-            switch (filehandler.getProperty("browser").toLowerCase()) {
+            //readfile is static so don't need to instantiate Filehandler
+            String browser = Filehandler.readFile("browser");
+            switch (browser.toLowerCase()) {
                 case "chrome":
                     driver = new ChromeDriver();
                     logger.info("Chrome has been selected");
@@ -40,7 +50,6 @@ public class webDriverManager {
         //Going to URL that we are testing
         getUrl();
 
-
         return driver;
     }
 
@@ -61,5 +70,10 @@ public class webDriverManager {
             System.out.println(ex.getMessage());
         }
     }
+
+
+//    public void setUpExtentReport () {
+//        ExtentSparkReporter htmlReporter = new ExtentSparkReporter(filehandler.)
+//    }
     // Additional methods for other functionalities can be added here
 }

@@ -1,30 +1,29 @@
-package tests;
+package pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import utils.webDriverManager;
+import utils.WebDriverManager;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 
 //we extend this class to access the methods in webDriverManager
-public class homePage extends webDriverManager {
+public class HomePage extends WebDriverManager {
     @FindBy(css = ".home-body > div > div:nth-child(6)") WebElement BookCard;
     @FindBy(id = "login") WebElement LoginButton;
 
-    public homePage() {
+    public HomePage() {
         this.driver = getDriver();
         PageFactory.initElements(driver, this);
         logger.info("Pagefactory has be instantiated");
     }
 
     public void ClickBookCard () {
-        BookCard.click();
         ScrollPage();
+        BookCard.click();
         logger.info("Book card on Homepage has been clicked");
     }
 
@@ -39,6 +38,7 @@ public class homePage extends webDriverManager {
            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
            wait.until(ExpectedConditions.visibilityOf(LoginButton));
            logger.info("Waiting 2 seconds for LoginButton to appear");
+
            boolean isDisplayed = LoginButton.isDisplayed();
            logger.info("Login Button is present");
            return isDisplayed;
