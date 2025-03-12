@@ -15,12 +15,12 @@ public class WebDriverManager {
     public static final Logger logger = LogManager.getLogger(WebDriverManager.class);
     public static WebDriver driver;
     private static Filehandler filehandler;
-    public ExtentReports reports;
-    public ExtentTest test;
+    public static ExtentReports reports;
+    public static ExtentTest test;
 
-//    public WebDriverManager () {
-//        setUpExtentReport();
-//    }
+    public WebDriverManager () {
+        setUpExtentReport();
+    }
 
     public static WebDriver getDriver() {
         try {
@@ -62,7 +62,7 @@ public class WebDriverManager {
     }
     public static void getUrl() {
         try{
-            String url = filehandler.getProperty("url");
+            String url = Filehandler.getProperty("url");
             driver.get(url);
             logger.info("opening {}", url);
         }catch (Exception ex) {
@@ -72,8 +72,23 @@ public class WebDriverManager {
     }
 
 
-//    public void setUpExtentReport () {
-//        ExtentSparkReporter htmlReporter = new ExtentSparkReporter(filehandler.)
-//    }
-    // Additional methods for other functionalities can be added here
+    private ExtentReports setUpExtentReport () {
+        String temp = Filehandler.ConfigPath+"reports/TestReport_.html";
+        ExtentSparkReporter htmlReporter = new ExtentSparkReporter(temp);
+        htmlReporter.config().setDocumentTitle("Automation Report");
+        htmlReporter.config().setReportName("Selenium Test Results");
+        htmlReporter.config().setTheme(Theme.STANDARD);
+
+        reports = new ExtentReports();
+        reports.attachReporter(htmlReporter);
+        logger.info("Setting up Extent Reports on:- ");
+        return reports;
+    }
+
+    public static void reportFlush() {
+        reports.flush();
+        logger.info("Cleaning extent reports");
+    }
+
+     //Additional methods for other functionalities can be added here
 }

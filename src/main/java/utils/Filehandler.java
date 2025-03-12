@@ -18,10 +18,10 @@ public class Filehandler {
     public static String ConfigPath = dir + Fs + "src" + Fs + "main" + Fs + "resources" + Fs;
     public static String ConfigFile = ConfigPath + "config.properties";
 
-    public static String readFile(String strKey) throws FileNotFoundException {
+    public static String readFile(String strKey)  {
         String result="";
-        FileInputStream fis = new FileInputStream(ConfigFile);
         try {
+            FileInputStream fis = new FileInputStream(ConfigFile);
             properties.load(fis); //loads properties from file
             result = properties.getProperty(strKey);
         }catch (Exception e) {
@@ -31,9 +31,8 @@ public class Filehandler {
     }
 
 
-    public String getProperty(String key) {
+    public static String getProperty(String key) {
         String results = properties.getProperty(key);
         return results;
     } //this returns the key from config.properties
-
 }
