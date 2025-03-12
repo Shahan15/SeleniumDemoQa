@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import utils.WebDriverManager;
@@ -26,10 +27,10 @@ public class BookstoreHomePageTest {
         WebDriverManager.reportFlush();
 
     }
-//
-//    @AfterClass
-//    public void TearDown() {
-//        webDriverManager.quitDriver();
-//    }
+
+    @AfterClass
+    public void TearDown() {
+        WebDriverManager.quitDriver();
+    }
 
 }
