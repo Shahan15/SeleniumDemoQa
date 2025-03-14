@@ -16,6 +16,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static utils.Filehandler.Fs;
+
 public class PropertiesHandler {
 
     public static final Logger logger = LogManager.getLogger(PropertiesHandler.class);
@@ -102,7 +104,7 @@ public class PropertiesHandler {
     public static String takeScreenshot() {
         // Takes screenshot
         File SS = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String SFile = Filehandler.reports + "Screenshot"+ timestamp + ".png";
+        String SFile = Filehandler.screenshotPath + "img"+ timestamp + ".png";
         try {
             FileUtils.copyFile(SS,new File(SFile));
         } catch (Exception e) {

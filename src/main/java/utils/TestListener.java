@@ -12,6 +12,7 @@ import static utils.PropertiesHandler.timestamp;
 public class TestListener implements ITestListener {
     ExtentReports r = PropertiesHandler.reports;
     ExtentTest t;
+    String SSPath = PropertiesHandler.takeScreenshot();
 
     @Override
     public void onTestSuccess(ITestResult result) {
@@ -19,7 +20,6 @@ public class TestListener implements ITestListener {
         t = r.createTest(result.getName());
         t.log(Status.PASS, "Results are expected");
         try {
-            String SSPath = PropertiesHandler.takeScreenshot();
             t.addScreenCaptureFromPath(SSPath);
         } catch (Exception e){
             logger.error(e.getMessage());
@@ -30,7 +30,11 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         t = r.createTest(result.getName());
         t.log(Status.FAIL, "Results are NOT what was expected");
-        PropertiesHandler.takeScreenshot();
+        try {
+            t.addScreenCaptureFromPath(SSPath);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Filehandler {
     public static String ConfigFile = ConfigPath + "config.properties";
 
     public static String reports = ConfigPath + "reports" + Fs;
-    public static String screenshotPath = ConfigPath + Fs;
+    public static String screenshotPath = ConfigPath + "ScreenshotsFolder" + Fs;
 
     public static String readFile(String strKey)  {
         String result="";
