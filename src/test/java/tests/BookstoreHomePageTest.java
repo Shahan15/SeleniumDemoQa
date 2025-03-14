@@ -11,7 +11,7 @@ import utils.PropertiesHandler;
 @Listeners(utils.TestListener.class)
 public class BookstoreHomePageTest {
     HomePage homepage = new HomePage();
-    String testTitle = "navigatingToBookstoreHome";
+    String testTitle = "navigating To Bookstore-Home";
 
     @Test
     public void navigatingToBookstoreHome() {

@@ -16,8 +16,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static utils.Filehandler.Fs;
-
 public class PropertiesHandler {
 
     public static final Logger logger = LogManager.getLogger(PropertiesHandler.class);

@@ -7,7 +7,7 @@ import org.testng.ITestListener; // ITestListener is an interface provided by Te
 import org.testng.ITestResult;
 
 import static utils.PropertiesHandler.logger;
-import static utils.PropertiesHandler.timestamp;
+
 
 public class TestListener implements ITestListener {
     ExtentReports r = PropertiesHandler.reports;
@@ -17,18 +17,15 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         // This makes a new entry in the report with the name of the test that just ran
-        t = r.createTest(result.getName());
+        String testName = "PASS: " + result.getName();
+        t = r.createTest(testName);
         t.log(Status.PASS, "Results are expected");
-        try {
-            t.addScreenCaptureFromPath(SSPath);
-        } catch (Exception e){
-            logger.error(e.getMessage());
-        }
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        t = r.createTest(result.getName());
+        String testName = "FAIL Screenshot: " + result.getName();
+        t = r.createTest(testName);
         t.log(Status.FAIL, "Results are NOT what was expected");
         try {
             t.addScreenCaptureFromPath(SSPath);
@@ -40,5 +37,12 @@ public class TestListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         r.flush();
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+        String testName = "SKIPPED: " + result.getName();
+        t = r.createTest(testName);
+        t.log(Status.SKIP,"This test was not executed, it was skipped");
     }
 }
