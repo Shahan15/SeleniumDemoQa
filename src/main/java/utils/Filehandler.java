@@ -1,8 +1,5 @@
 package utils;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.util.Properties; //class to handle key value pairs
 import static java.nio.file.FileSystems.getDefault;
 
@@ -17,6 +14,9 @@ public class Filehandler {
     public static String dir = System.getProperty("user.dir");
     public static String ConfigPath = dir + Fs + "src" + Fs + "main" + Fs + "resources" + Fs;
     public static String ConfigFile = ConfigPath + "config.properties";
+
+    public static String reports = ConfigPath + "reports" + Fs;
+    public static String screenshotPath = ConfigPath + Fs;
 
     public static String readFile(String strKey)  {
         String result="";

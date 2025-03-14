@@ -1,6 +1,9 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -9,16 +12,22 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class WebDriverManager {
+public class PropertiesHandler {
 
-    public static final Logger logger = LogManager.getLogger(WebDriverManager.class);
+    public static final Logger logger = LogManager.getLogger(PropertiesHandler.class);
     public static WebDriver driver;
     private static Filehandler filehandler;
     public static ExtentReports reports;
     public static ExtentTest test;
 
-    public WebDriverManager () {
+     static String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+
+    public PropertiesHandler() {
         setUpExtentReport();
     }
 
@@ -72,8 +81,8 @@ public class WebDriverManager {
     }
 
 
-    private ExtentReports setUpExtentReport () {
-        String temp = Filehandler.ConfigPath+"reports/TestReport_.html";
+    public ExtentReports setUpExtentReport () {
+        String temp = Filehandler.reports +"TestReport_.html";
         ExtentSparkReporter htmlReporter = new ExtentSparkReporter(temp);
         htmlReporter.config().setDocumentTitle("Automation Report");
         htmlReporter.config().setReportName("Selenium Test Results");
@@ -88,6 +97,18 @@ public class WebDriverManager {
     public static void reportFlush() {
         reports.flush();
         logger.info("Cleaning extent reports");
+    }
+
+    public static String takeScreenshot() {
+        // Takes screenshot
+        File SS = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String SFile = Filehandler.reports + "Screenshot"+ timestamp + ".png";
+        try {
+            FileUtils.copyFile(SS,new File(SFile));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return SFile;
     }
 
      //Additional methods for other functionalities can be added here
