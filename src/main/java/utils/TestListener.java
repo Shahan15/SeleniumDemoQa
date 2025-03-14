@@ -6,13 +6,13 @@ import org.testng.ITestContext;
 import org.testng.ITestListener; // ITestListener is an interface provided by TestNG
 import org.testng.ITestResult;
 
-import static utils.PropertiesHandler.logger;
+import static utils.Base.logger;
 
 
 public class TestListener implements ITestListener {
-    ExtentReports r = PropertiesHandler.reports;
+    ExtentReports r = Base.reports;
     ExtentTest t;
-    String SSPath = PropertiesHandler.takeScreenshot();
+    String SSPath = Base.takeScreenshot();
 
     @Override
     public void onTestSuccess(ITestResult result) {

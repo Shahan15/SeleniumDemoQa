@@ -5,13 +5,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import utils.PropertiesHandler;
+import utils.Base;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
 //we extend this class to access the methods in webDriverManager
-public class HomePage extends PropertiesHandler {
+public class HomePage extends Base {
     @FindBy(css = ".home-body > div > div:nth-child(6)") WebElement BookCard;
     @FindBy(id = "login") WebElement LoginButton;
 

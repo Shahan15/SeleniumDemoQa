@@ -5,7 +5,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
-import utils.PropertiesHandler;
+import utils.Base;
 
 
 @Listeners(utils.TestListener.class)
@@ -16,23 +16,23 @@ public class BookstoreHomePageTest {
     @Test
     public void navigatingToBookstoreHome() {
         //Clicking the book card on homepage
-        PropertiesHandler.test = PropertiesHandler.reports.createTest(testTitle);
-        PropertiesHandler.logger.info("starting "+ testTitle+ "test");
+        Base.test = Base.reports.createTest(testTitle);
+        Base.logger.info("starting "+ testTitle+ "test");
         homepage.ClickBookCard();
-        PropertiesHandler.test.pass("Bookstore home card has been clicked successfully");
+        Base.test.pass("Bookstore home card has been clicked successfully");
 
         //is login button present
         Assert.assertEquals(homepage.isLoginButtonPresent(),true);
-        PropertiesHandler.test.pass("Login Button is present, visible");
+        Base.test.pass("Login Button is present, visible");
 
         //flush method
-        PropertiesHandler.reportFlush();
+        Base.reportFlush();
 
     }
 
     @AfterClass
     public void TearDown() {
-        PropertiesHandler.quitDriver();
+        Base.quitDriver();
     }
 
 }

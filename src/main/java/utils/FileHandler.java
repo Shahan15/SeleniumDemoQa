@@ -3,12 +3,12 @@ import java.io.FileInputStream;
 import java.util.Properties; //class to handle key value pairs
 import static java.nio.file.FileSystems.getDefault;
 
-public class Filehandler {
+public class FileHandler {
 
     static Properties properties = new Properties();//instantiating Properties class
 
     //To make code more dynamic and portable need to build file path dynamically
-    //Fs will get the system seperator e.g. / or \
+    //Fs will get the system separator e.g. / or \
     //dir will get the user directory
     public static String Fs = getDefault().getSeparator();
     public static String dir = System.getProperty("user.dir");

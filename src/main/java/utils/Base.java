@@ -16,25 +16,25 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PropertiesHandler {
+public class Base {
 
-    public static final Logger logger = LogManager.getLogger(PropertiesHandler.class);
+    public static final Logger logger = LogManager.getLogger(Base.class);
     public static WebDriver driver;
-    private static Filehandler filehandler;
+    private static FileHandler filehandler;
     public static ExtentReports reports;
     public static ExtentTest test;
 
      static String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
 
-    public PropertiesHandler() {
+    public Base() {
         setUpExtentReport();
     }
 
     public static WebDriver getDriver() {
         try {
             //readfile is static so don't need to instantiate Filehandler
-            String browser = Filehandler.readFile("browser");
+            String browser = FileHandler.readFile("browser");
             switch (browser.toLowerCase()) {
                 case "chrome":
                     driver = new ChromeDriver();
@@ -56,7 +56,7 @@ public class PropertiesHandler {
 
         driver.manage().window().maximize();
 
-        //Going to URL that we are testing
+        //Calls method to get url we want to test
         getUrl();
 
         return driver;
@@ -69,9 +69,11 @@ public class PropertiesHandler {
             logger.info("Closing browser");
         }
     }
+
+    //gets URl we are testing
     public static void getUrl() {
         try{
-            String url = Filehandler.getProperty("url");
+            String url = FileHandler.getProperty("url");
             driver.get(url);
             logger.info("opening {}", url);
         }catch (Exception ex) {
@@ -80,9 +82,9 @@ public class PropertiesHandler {
         }
     }
 
-
+    //extent reports
     public ExtentReports setUpExtentReport () {
-        String temp = Filehandler.reports +"TestReport_"+timestamp+".html";
+        String temp = FileHandler.reports +"TestReport_"+timestamp+".html";
         ExtentSparkReporter htmlReporter = new ExtentSparkReporter(temp);
         htmlReporter.config().setDocumentTitle("Automation Report");
         htmlReporter.config().setReportName("Selenium Test Results");
@@ -99,10 +101,11 @@ public class PropertiesHandler {
         logger.info("Cleaning extent reports");
     }
 
+    //Screenshot method
     public static String takeScreenshot() {
         // Takes screenshot
         File SS = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String SFile = Filehandler.screenshotPath + "img"+ timestamp + ".png";
+        String SFile = FileHandler.screenshotPath + "img"+ timestamp + ".png";
         try {
             FileUtils.copyFile(SS,new File(SFile));
         } catch (Exception e) {
