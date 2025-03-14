@@ -84,7 +84,7 @@ public class PropertiesHandler {
 
 
     public ExtentReports setUpExtentReport () {
-        String temp = Filehandler.reports +"TestReport_.html";
+        String temp = Filehandler.reports +"TestReport_"+timestamp+".html";
         ExtentSparkReporter htmlReporter = new ExtentSparkReporter(temp);
         htmlReporter.config().setDocumentTitle("Automation Report");
         htmlReporter.config().setReportName("Selenium Test Results");

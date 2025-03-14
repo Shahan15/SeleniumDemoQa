@@ -28,8 +28,6 @@ public class BookstoreHomePageTest {
         //flush method
         PropertiesHandler.reportFlush();
 
-
-
     }
 
     @AfterClass
